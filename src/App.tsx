@@ -81,14 +81,24 @@ function App() {
 
           <div className="flex flex-col gap-4">
             {outcome.ok ? (
-              <>
-                <SummaryBar result={outcome.result} onCopy={handleCopy} copied={copied} />
-                <div className="grid grid-cols-1 gap-3">
-                  {outcome.result.servers.map((s) => (
-                    <ServerCard key={s.name} server={s} />
-                  ))}
+              outcome.result.totalServers === 0 ? (
+                <div className="rounded-lg border border-zinc-800 bg-zinc-900/60 p-6 text-sm text-zinc-400">
+                  <p className="text-zinc-300">Config parses, but has no servers.</p>
+                  <p className="mt-2 text-zinc-500">
+                    Add one or more entries under <span className="font-mono text-zinc-300">mcpServers</span> to see the
+                    permission surface.
+                  </p>
                 </div>
-              </>
+              ) : (
+                <>
+                  <SummaryBar result={outcome.result} onCopy={handleCopy} copied={copied} />
+                  <div className="grid grid-cols-1 gap-3">
+                    {outcome.result.servers.map((s) => (
+                      <ServerCard key={s.name} server={s} />
+                    ))}
+                  </div>
+                </>
+              )
             ) : (
               <div className="rounded-lg border border-dashed border-zinc-800 p-6 text-sm text-zinc-500">
                 Results will appear here once the config parses.

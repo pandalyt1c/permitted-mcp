@@ -20,9 +20,14 @@ describe("parseConfig", () => {
     if (!r.ok) expect(r.error).toMatch(/mcpServers/);
   });
 
-  it("rejects empty mcpServers", () => {
+  it("accepts empty mcpServers as a valid zero-server config", () => {
     const r = parseConfig('{"mcpServers": {}}');
-    expect(r.ok).toBe(false);
+    expect(r.ok).toBe(true);
+    if (r.ok) {
+      expect(r.result.totalServers).toBe(0);
+      expect(r.result.categories).toEqual([]);
+      expect(r.result.highestRisk).toBeNull();
+    }
   });
 
   it("rejects non-object mcpServers", () => {

@@ -71,9 +71,6 @@ export function parseConfig(text: string): ParseOutcome {
 
   const rawServers = data.mcpServers as Record<string, unknown>;
   const names = Object.keys(rawServers);
-  if (names.length === 0) {
-    return { ok: false, error: '"mcpServers" is empty. Add at least one server definition.' };
-  }
 
   const analyzed: AnalyzedServer[] = [];
   for (const name of names) {
