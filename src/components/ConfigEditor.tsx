@@ -38,7 +38,7 @@ export function ConfigEditor({ value, onChange, onLoadSample, onClear, error }: 
         autoCorrect="off"
         autoCapitalize="off"
         placeholder='{ "mcpServers": { ... } }'
-        className="min-h-[260px] md:min-h-[420px] w-full resize-y rounded-lg border border-zinc-800 bg-zinc-900/60 p-3 text-xs text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-zinc-600"
+        className="min-h-[260px] md:min-h-[420px] w-full max-w-full resize rounded-lg border border-zinc-800 bg-zinc-900/60 p-3 text-xs text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-zinc-600"
       />
       {error && (
         <div className="mt-2 rounded border border-red-500/40 bg-red-500/5 px-3 py-2 text-sm text-red-300 font-mono">

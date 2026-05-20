@@ -1,5 +1,7 @@
 # Permitted MCP — Claude Code Context
 
+Last updated: May 20, 2026
+
 ## What this is
 Permitted MCP (permitted.io/mcp) is a browser-based visualizer for MCP
 server configs. Paste your Claude Desktop config, see which servers are
@@ -93,3 +95,41 @@ When the heuristic does not recognize the server, it returns Unknown
     Network           cyan-500
     Secrets           yellow-500
     Unknown           zinc-500
+
+## Repos (all public, pandalyt1c)
+
+- pandalyt1c/permitted-mcp     — this app
+- pandalyt1c/permitted-io      — static placeholder at permitted.io
+- pandalyt1c/permitted-router  — Cloudflare Worker proxying /mcp route
+
+## Deploy
+
+- permitted-mcp: Cloudflare Pages, auto-deploys on push to main.
+- permitted-io: Cloudflare Pages, auto-deploys on push to main.
+- permitted-router: manual wrangler deploy (no auto-deploy yet).
+
+Cloudflare account ID: 55c09b4e3f40185f2baa8dad29434fd2
+
+## Worker proxy pattern
+
+HTMLRewriter rewrites all absolute asset paths to /mcp/... prefix.
+Injects <base href="/mcp/"> as belt-and-suspenders.
+Do not modify the Vite build config to work around this.
+
+## Git patterns
+
+- No explicit -c user.email flags on commits. Claude Code handles identity.
+- Public repo creation: use ! prefix. Example:
+    ! gh repo create pandalyt1c/repo-name --public
+- Run npm test before every commit. Must be green.
+
+## Known gaps (as of May 20, 2026)
+
+1. Script runner label: direct node/python runners show command name
+   instead of script path. Fix in progress.
+2. Textarea resize: vertical-only. Fix in progress.
+3. GitHub auto-deploy: not yet wired. Manual deploy in place.
+
+## Read on start
+
+Read MEMORY.md in this directory if it exists.
