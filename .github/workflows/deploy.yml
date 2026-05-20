@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      deployments: write
     name: Deploy to Cloudflare Pages
     steps:
       - uses: actions/checkout@v4
@@ -25,9 +24,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: 55c09b4e3f40185f2baa8dad29434fd2
-          wranglerVersion: '4.93.0'
-          command: pages deploy dist --project-name=permitted-mcp --branch=main
+        run: npx wrangler@4.93.0 pages deploy dist --project-name=permitted-mcp --branch=main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 55c09b4e3f40185f2baa8dad29434fd2
