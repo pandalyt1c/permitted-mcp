@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { inferPermissions, shapeServer } from "../infer";
+import { inferDisplayLabel, inferPermissions, shapeServer } from "../infer";
 import type { Category, RawServer } from "../types";
 
 function cats(name: string, raw: RawServer): Category[] {
@@ -137,5 +137,26 @@ describe("inferPermissions — required corpus", () => {
       args: ["--flag"],
     });
     expect(c).toEqual(["Unknown"]);
+  });
+});
+
+describe("inferDisplayLabel", () => {
+  it("prefers package name when present", () => {
+    expect(inferDisplayLabel("npx", ["-y", "@modelcontextprotocol/server-filesystem"], "@modelcontextprotocol/server-filesystem"))
+      .toBe("@modelcontextprotocol/server-filesystem");
+  });
+
+  it("uses script path when command is a direct runner", () => {
+    expect(inferDisplayLabel("node", ["./scripts/my-server.js"], undefined))
+      .toBe("./scripts/my-server.js");
+  });
+
+  it("uses script path for python runner", () => {
+    expect(inferDisplayLabel("python", ["/abs/path/server.py"], undefined))
+      .toBe("/abs/path/server.py");
+  });
+
+  it("falls back to command when no script-like arg", () => {
+    expect(inferDisplayLabel("node", ["--version"], undefined)).toBe("node");
   });
 });

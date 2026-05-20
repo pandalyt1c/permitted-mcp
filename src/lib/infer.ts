@@ -170,6 +170,22 @@ export function inferPermissions(input: InferInput): {
   };
 }
 
+// Display label for a server's secondary line on the card.
+// Prefers package name; for direct script runners (node/python/etc), prefers the script path.
+export function inferDisplayLabel(command: string, args: string[], pkg?: string): string | undefined {
+  if (pkg) return pkg;
+  const first = args[0];
+  if (first) {
+    const isScriptPath =
+      /\.(js|ts|mjs|cjs|py|sh|rb|php)$/i.test(first) ||
+      first.includes("/") ||
+      first.includes("\\") ||
+      first.startsWith(".");
+    if (isScriptPath) return first;
+  }
+  return command || undefined;
+}
+
 export function shapeServer(name: string, raw: RawServer): InferInput {
   return {
     name,

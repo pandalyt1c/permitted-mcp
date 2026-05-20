@@ -1,5 +1,6 @@
 import type { AnalyzedServer } from "../lib/types";
 import { Badge } from "./Badge";
+import { inferDisplayLabel } from "../lib/infer";
 
 function truncate(s: string, n: number): string {
   if (s.length <= n) return s;
@@ -25,15 +26,14 @@ function renderArg(a: string): string {
 }
 
 export function ServerCard({ server }: { server: AnalyzedServer }) {
+  const label = inferDisplayLabel(server.command, server.args, server.pkg);
   return (
     <div className="rounded-lg border border-zinc-800 bg-zinc-900/60 p-4">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h3 className="font-mono text-sm text-zinc-100 truncate">{server.name}</h3>
-          {server.pkg ? (
-            <p className="font-mono text-xs text-zinc-400 truncate mt-0.5">{server.pkg}</p>
-          ) : server.command ? (
-            <p className="font-mono text-xs text-zinc-400 truncate mt-0.5">{server.command}</p>
+          {label ? (
+            <p className="font-mono text-xs text-zinc-400 truncate mt-0.5">{label}</p>
           ) : null}
         </div>
         <div className="flex flex-wrap justify-end gap-1.5 shrink-0">
