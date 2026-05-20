@@ -29,4 +29,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 55c09b4e3f40185f2baa8dad29434fd2
+          wranglerVersion: '4.93.0'
           command: pages deploy dist --project-name=permitted-mcp --branch=main
