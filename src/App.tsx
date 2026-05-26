@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { ConfigEditor } from "./components/ConfigEditor";
+import { EmailCapture } from "./components/EmailCapture";
 import { ServerCard } from "./components/ServerCard";
 import { SummaryBar } from "./components/SummaryBar";
 import { parseConfig } from "./lib/parse";
@@ -106,6 +107,8 @@ function App() {
             )}
           </div>
         </div>
+
+        <EmailCapture />
 
         <section className="mt-12 border-t border-zinc-900 pt-6 text-xs text-zinc-500 space-y-2">
           <p>

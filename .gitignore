@@ -12,6 +12,14 @@ dist
 dist-ssr
 *.local
 
+# Cloudflare Wrangler local secrets
+.dev.vars
+.dev.vars.*
+.wrangler/
+
+# Local scratch / research dumps (not part of the app)
+aws_new.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
